@@ -60,11 +60,4 @@ for (i in 1:nrow(chr.segs)) {
 }
 dev.off()
 
-if( install==T) {
-  
-}else{
-  
-}
-
-
 
