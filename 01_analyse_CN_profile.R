@@ -17,6 +17,8 @@ plot(c(1,len), c(0,y_limit), type = "n", xaxt = "n", yaxt="n", main = NULL, xlab
 axis(side = 2, at = ticks)
 abline(h=ticks, col="lightgrey", lty=1)
 
+colourMinor="yellow"
+colourTotal="blue"
 #A_rle<-rle(nAfullPlot)
 start=0
 #plot minor allele copy number
