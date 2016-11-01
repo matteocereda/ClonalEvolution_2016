@@ -1,6 +1,7 @@
 load("Input/ASCAT.Rdata")
 load("Input/NCG_CRC_cancer_genes.Rdata")
 
+
 write.csv(ascat, file= "Results/ASCAT.results.csv",row.names=F)
 
 # Produce ASCAT plot
@@ -42,6 +43,7 @@ for(i in 1:length(A_rle$values)){
 }
 
 #B_rle<-rle(nBfullPlot)
+require(plyr)
 chr.segs = ddply( ascat, .(Chr), summarise, n=sum(nProbes))
 chr.segs$cs = cumsum(chr.segs$n)
 
