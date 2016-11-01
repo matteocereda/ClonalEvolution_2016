@@ -1,5 +1,5 @@
 load("Input/ASCAT.Rdata")
-
+load("Input/SNVS.Rdata")
 library(sciClone)
 
 # 1. chromosome 2. position 3. reference-supporting read counts 4. variant-supporting read counts 5. variant allele fraction (between 0-100)
