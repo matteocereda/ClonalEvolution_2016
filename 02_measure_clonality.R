@@ -2,7 +2,7 @@
 load("Input/ASCAT.Rdata")
 load("Input/SNVS.Rdata")
 load("Input/NCG_CRC_cancer_genes.Rdata")
-
+library(plry)
 get.tc.correction.somatic = function( obs, tc, CNt, CNn=2){
   return( min(  obs * ( 1 + (  ( CNn*(1-tc) )/( CNt * tc) ) )  ,  1))
 }
