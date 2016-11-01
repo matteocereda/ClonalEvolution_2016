@@ -1,7 +1,7 @@
 load("Results/SNVS.clonality.Rdata")
 library(plyr)
 library(reshape2)
-library(ggplot)
+library(ggplot2)
 library(ggrepel)
 library(RColorBrewer)
 color_clone_composition=c( 'M' = rgb(0,162,205, maxColorValue = 255), 
