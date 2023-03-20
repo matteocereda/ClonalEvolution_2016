@@ -1,4 +1,4 @@
-load("Input/ASCAT.Rdata")
+sequenza = readRDS("Input/sequenza.rds")
 load("Input/SNVS.Rdata")
 library(sciClone)
 library(plyr)
@@ -9,7 +9,7 @@ vafs = snvs[,c('Chromosome','Position','ref_counts','var_counts','obs.VAF')]
 vafs$obs.VAF = vafs$obs.VAF*100
 
 # 1. chromosome 2. segment start position 3. segment stop position 4. copy number value for that segment. Unrepresented regions are assumed to have a copy number of 2.
-cnv = ascat[,c('Chr','Start','End','cn')]
+cnv = sequenza[,c('Chr','Start','End','cn')]
 
 lib = installed.packages()
 if("sciClone" %in% rownames(lib)){
