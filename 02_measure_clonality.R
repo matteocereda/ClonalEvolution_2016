@@ -1,13 +1,15 @@
 # load data
-load("Input/ASCAT.Rdata")
+sequenza = readRDS("Input/sequenza.rds")
 load("Input/SNVS.Rdata")
 load("Input/NCG_CRC_cancer_genes.Rdata")
+
 library(plyr)
+
 get.tc.correction.somatic = function( obs, tc, CNt, CNn=2){
   return( min(  obs * ( 1 + (  ( CNn*(1-tc) )/( CNt * tc) ) )  ,  1))
 }
 
- 
+
 
 for(i in 1:nrow(snvs)){
   snvs$frq.tc[i] = get.tc.correction.somatic(snvs$obs.VAF[i], snvs$Aberrant_Cell_Fraction,
@@ -48,7 +50,7 @@ base_breaks_y = function(m, br, la ){
 }
 
 
-p =ggplot(snvs, aes(x=clonality)) + geom_density(fill=rgb(172,152,199, maxColorValue = 255), alpha=.5,aes(y = ..count..)) + 
+p =ggplot(snvs, aes(x=clonality)) + geom_density(fill=rgb(172,152,199, maxColorValue = 255), alpha=.5,aes(y = ..count..)) +
   geom_vline(xintercept=0.80, linetype="dashed", color="grey")+
   geom_vline(xintercept=0.35, linetype="dashed", color="grey")
 
@@ -61,8 +63,9 @@ lmed = ifelse(lmax==1, 0.5, ifelse( ymed>0.5, round(ymed), 0.5))
 
 p = p +theme_bw()+scale_x_reverse()+ylab('Expected Alterations')+xlab('Alteration clonality (%)')
 
+
 drvrs=ddply(
-  subset(snvs, Hugo_Symbol%in%crc_cancer_genes[,4]),
+  subset(snvs, Hugo_Symbol%in%crc_cancer_genes$symbol),
   .(clonality), summarise, gname=unique(Hugo_Symbol)
 )
 
@@ -75,7 +78,7 @@ for (i in 1:nrow(drvrs)){
 }
 
 pdf(file="Results/DensityPlot.pdf",h=6,w=9)
-  p +  
+  p +
   geom_point(data=drvrs, aes(x = x, y=y), colour="black", show.legend = F)+
   geom_text_repel(data=drvrs, aes(x=x, y=y, label = gname))
 dev.off()
